@@ -1,4 +1,4 @@
-//
+ //
 //  SwiftMomentTests.swift
 //  SwiftMomentTests
 //
@@ -458,7 +458,7 @@ class MomentTests: XCTestCase {
 		XCTAssertEqual(now.locale, NSLocale.currentLocale(), expectedString)
 	}
 
-    func testAddingInt() {
+    func testAddingOneMonth() {
         // This is to verify that issue #48 is corrected
         // https://github.com/akosma/SwiftMoment/issues/48
         let problem = moment("2016-07-01")!
@@ -466,6 +466,36 @@ class MomentTests: XCTestCase {
         let expected = moment("2016-08-01")!
         XCTAssertEqual(result, expected)
     }
+	
+	func testAddingSeveralMonths() {
+		// This is to verify that issue #48 is corrected
+		// https://github.com/akosma/SwiftMoment/issues/48
+		let obj = moment([2016, 7, 1, 20, 00, 00])!
+		let result = obj.add(5, .Months)
+		let expected = moment([2016, 12, 1, 20, 00, 00])!
+		XCTAssertEqual(result, expected)
+	}
+
+	func testAddingOneDay() {
+		let from = moment("2016-07-01")!
+		let to = from.add(1, .Days)
+		let expected = moment("2016-07-02")!
+		XCTAssertEqual(to, expected)
+	}
+	
+	func testAddingSeveralDays() {
+		let obj = moment([2017, 2, 26, 20, 00, 00])!
+		let result = obj.add(5, .Days)
+		let expected = moment([2017, 3, 3, 20, 00, 00])!
+		XCTAssertEqual(result, expected)
+	}
+	
+	func testAddingSeveralWeeks() {
+		let obj = moment([2016, 12, 30, 20, 00, 00])!
+		let result = obj.add(3, .Weeks)
+		let expected = moment([2017, 1, 20, 20, 00, 00])!
+		XCTAssertEqual(result, expected)
+	}
 
     func testTimeZoneChangeAdd() {
         let now = moment(NSTimeZone(abbreviation: "UTC")!)
